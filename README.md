@@ -2,6 +2,12 @@
 
 **KiraLang** is a simple interpreted programming language with a custom syntax, designed for educational and experimental purposes. This project features a built-in code editor with real-time lexical and syntax error highlighting using GOLD Parser and ScintillaNET.
 
+## 📽️ Project Demo
+
+Watch a full walkthrough of the project on YouTube:  
+[Project Demo Video](). **will add soon**
+
+
 ## Features
 
 - Custom language grammar (`.cgt`) built using GOLD Parser.
