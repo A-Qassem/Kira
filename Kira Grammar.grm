@@ -1,0 +1,120 @@
+"Name"     = 'KiraLang'
+"Author"   = 'Ahmed Qassem'
+"Version"  = 'V 1.0'
+
+"Start Symbol" = <Start>
+
+! -------------------------------------------------
+! Character Sets
+! -------------------------------------------------
+
+{String Chars} = {Printable} + {HT} - ["\]
+
+! -------------------------------------------------
+! Terminals
+! -------------------------------------------------
+
+Digit          = {digit}
+Digits         = {digit}+
+Identifier     = {Letter}{AlphaNumeric}*
+
+StringLiteral  = '"' ( {String Chars} | '\' {Printable} )* '"'
+
+! Keywords
+If             = 'if'
+Else           = 'else'
+Then           = 'then'
+While          = 'while'
+Def            = 'def'
+
+! Symbols
+LParen         = '('
+RParen         = ')'
+LBrace         = '{'
+RBrace         = '}'
+Assign         = '='
+Plus           = '+'
+Minus          = '-'
+Mul            = '*'
+Div            = '/'
+Mod            = '%'
+Exp            = '**'
+Eq             = '=='
+Ne             = '!='
+Lt             = '<'
+Gt             = '>'
+Le             = '<='
+Ge             = '>='
+SemiColon      = ';'
+
+And            = '&&'
+Or             = '||'
+
+! -------------------------------------------------
+! Rules
+! -------------------------------------------------
+
+
+
+<Start>    ::=  <Program>
+
+<Program>  ::= LBrace  <stmt_list>  RBrace
+
+<stmt_list> ::= <stmt> <stmt_list>
+              | <stmt>
+
+<stmt>      ::= <assign>
+              | <if>
+              | <while>
+
+<assign>   ::= Def Identifier Assign <Expression> SemiColon
+            | Identifier Assign Identifier SemiColon
+            | Identifier Assign <Expression> SemiColon
+
+<Expression> ::= <Expression> Or <LogicalAndExp>
+               | <LogicalAndExp>
+
+<LogicalAndExp> ::= <LogicalAndExp> And <RelationalExp>
+                  | <RelationalExp>
+
+<RelationalExp> ::= <RelationalExp> Gt  <Add Exp>
+                  | <RelationalExp> Lt  <Add Exp>
+                  | <RelationalExp> Le  <Add Exp>
+                  | <RelationalExp> Ge  <Add Exp>
+                  | <RelationalExp> Eq  <Add Exp>
+                  | <RelationalExp> Ne  <Add Exp>
+                  | <Add Exp>
+
+<Add Exp>  ::= <Add Exp> Plus <Mult Exp>
+             | <Add Exp> Minus <Mult Exp>
+             | <Mult Exp>
+
+<Mult Exp> ::= <Mult Exp> Mul <factor>
+             | <Mult Exp> Div <factor>
+             | <Mult Exp> Mod <factor>
+             | <factor>
+
+<factor>   ::= <factor> Exp <Negate Exp>
+             | <Negate Exp>
+
+<Negate Exp> ::= Minus <Value>
+               | <Value>
+               | Digit
+
+<Value>    ::= Identifier
+             | LParen <Expression> RParen
+             | Digits
+             | StringLiteral
+
+<if>       ::= If LParen <Expression> RParen Then LBrace <stmt_list> RBrace
+             | If LParen <Expression> RParen Then LBrace <stmt_list> RBrace <else if>
+             | If LParen <Expression> RParen Then LBrace <stmt_list> RBrace <else>
+
+<else if>  ::= Else If LParen <Expression> RParen Then LBrace <stmt_list> RBrace
+             | Else If LParen <Expression> RParen Then LBrace <stmt_list> RBrace <else if>
+             | Else If LParen <Expression> RParen Then LBrace <stmt_list> RBrace <else>
+
+<else>     ::= LBrace <stmt_list> RBrace
+
+<while>    ::= While LParen <Expression> RParen Then LBrace <stmt_list> RBrace
+
