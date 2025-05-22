@@ -5,7 +5,7 @@
 ## 📽️ Project Demo
 
 Watch a full walkthrough of the project on YouTube:  
-[Project Demo Video](). **will add soon**
+[Project Demo Video](https://youtu.be/ya9c1cWNaXk).
 
 
 ## Features
@@ -27,12 +27,12 @@ Watch a full walkthrough of the project on YouTube:
 
     if (x > y) then {
         def z = x;
-    } else {
+    } else if(x < y) then {
         def z = y;
     }
 
     while (x > 0 && x > y) then {
-        x -= 1;
+        x = x - 1;
     }
 }
 ```
